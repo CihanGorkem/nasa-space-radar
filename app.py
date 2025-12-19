@@ -10,7 +10,7 @@ def index():
     today = str(date.today())
     
     # NASA API'sine istek at (DEMO_KEY kullanıyoruz)
-    url = f"https://api.nasa.gov/neo/rest/v1/feed?start_date={today}&end_date={today}&api_key=DEMO_KEY"
+    url = f"https://api.nasa.gov/neo/rest/v1/feed?start_date={today}&end_date={today}&api_key=1iKLiT8ZbEMjn5ofOn2PozkYIA3g9kQvkis2jpMI"
     
     try:
         response = requests.get(url)
@@ -51,4 +51,5 @@ def index():
         return f"NASA bağlantısında hata oluştu: {e}"
 
 if __name__ == '__main__':
+
     app.run(debug=True)
