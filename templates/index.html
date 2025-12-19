@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>NASA Asteroid Radar 🌌</title>
+    <style>
+        body {
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 { text-shadow: 0 0 10px #4facfe; margin-bottom: 5px; }
+        .stats { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; }
+        .stat-box { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; border: 1px solid #4facfe; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        
+        .card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover { transform: translateY(-5px); border-color: #4facfe; }
+        
+        /* Tehlikeli Göktaşı Stili */
+        .hazardous { border: 2px solid #ff4b1f; box-shadow: 0 0 15px rgba(255, 75, 31, 0.3); }
+        .badge {
+            position: absolute; top: 10px; right: 10px;
+            padding: 5px 10px; border-radius: 5px; font-size: 0.8em; font-weight: bold;
+        }
+        .safe-badge { background: #00f2c3; color: black; }
+        .danger-badge { background: #ff4b1f; color: white; animation: pulse 1.5s infinite; }
+
+        .data-row { display: flex; justify-content: space-between; margin-top: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        .label { color: #888; }
+        
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 NASA Near-Earth Object Radar</h1>
+    <p>Tarih: {{ date }}</p>
+
+    <div class="stats">
+        <div class="stat-box">
+            Toplam Göktaşı: <strong>{{ count }}</strong>
+        </div>
+        <div class="stat-box" style="border-color: #ff4b1f;">
+            Tehlikeli Olabilecek: <strong>{{ hazardous_count }}</strong>
+        </div>
+    </div>
+
+    <div class="grid">
+        {% for ast in asteroids %}
+        <div class="card {% if ast.hazardous %}hazardous{% endif %}">
+            {% if ast.hazardous %}
+                <span class="badge danger-badge">TEHLİKELİ ⚠️</span>
+            {% else %}
+                <span class="badge safe-badge">GÜVENLİ</span>
+            {% endif %}
+            
+            <h2 style="margin-top:0;">{{ ast.name }}</h2>
+            
+            <div class="data-row">
+                <span class="label">Çap (Max):</span>
+                <span>{{ ast.size }} Metre</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Hız:</span>
+                <span>{{ ast.speed }} km/saat</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Mesafe:</span>
+                <span>{{ ast.distance }} km</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
